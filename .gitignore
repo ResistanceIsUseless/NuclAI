@@ -1,0 +1,362 @@
+# Nuclei Template Generator - .gitignore
+
+# =============================================================================
+# Python
+# =============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# =============================================================================
+# Machine Learning & AI Models
+# =============================================================================
+
+# Model files (use Git LFS for these)
+*.bin
+*.gguf
+*.q4_0
+*.q4_1
+*.q5_0
+*.q5_1
+*.q8_0
+*.f16
+*.f32
+*.safetensors
+*.pt
+*.pth
+*.ckpt
+*.pb
+*.tflite
+*.onnx
+*.model
+
+# Training outputs
+trained-model*/
+nuclei-model*/
+output/
+outputs/
+checkpoints/
+checkpoint-*/
+runs/
+lightning_logs/
+mlruns/
+wandb/
+tensorboard-logs/
+logs/
+
+# Hugging Face cache
+.cache/
+transformers_cache/
+huggingface_cache/
+
+# Model artifacts
+*.lock
+adapter_config.json
+adapter_model.bin
+pytorch_model.bin.index.json
+
+# =============================================================================
+# Data Files
+# =============================================================================
+
+# Large training datasets (use Git LFS)
+*.jsonl
+data/nuclei_training_data.jsonl
+data/large_dataset.json
+*.parquet
+*.arrow
+*.feather
+
+# Temporary data processing files
+temp_data/
+processed_data/
+interim/
+raw/
+external/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# =============================================================================
+# Configuration & Secrets
+# =============================================================================
+
+# API keys and secrets
+.env
+.env.local
+.env.*.local
+secrets.json
+config.json
+credentials.json
+.secrets/
+
+# Azure credentials
+.azure/
+azure_credentials.json
+
+# Hugging Face tokens
+.huggingface/
+hf_token.txt
+
+# WandB API keys
+.wandb/
+
+# =============================================================================
+# Development Environment
+# =============================================================================
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Emacs
+\#*\#
+.\#*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# PyCharm
+.idea/
+
+# =============================================================================
+# Operating System
+# =============================================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.tmp
+*.temp
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# =============================================================================
+# Azure & Cloud
+# =============================================================================
+
+# Azure ML
+.azureml/
+azureml-logs/
+azureml-models/
+azureml-setup/
+
+# Azure Container Registry
+.docker/
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# =============================================================================
+# Docker & Containers
+# =============================================================================
+Dockerfile.tmp
+.dockerignore
+docker-compose.override.yml
+
+# =============================================================================
+# Git LFS
+# =============================================================================
+# Note: Large files should be tracked by Git LFS
+# See .gitattributes for LFS configuration
+
+# =============================================================================
+# Project Specific
+# =============================================================================
+
+# Nuclei templates (if you don't want to include them)
+nuclei-templates/
+original-templates/
+
+# Generated templates for testing
+test_templates/
+generated_templates/
+template_output/
+
+# Evaluation results
+evaluation_results/
+benchmark_results/
+test_results.json
+
+# Temporary nuclei runs
+nuclei_output/
+scan_results/
+
+# Model conversion artifacts
+converted_models/
+gguf_models/
+
+# Training logs
+training.log
+fine_tuning.log
+azure_training.log
+
+# Backup files
+*.backup
+*.bak
+*.orig
+
+# Compressed files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# =============================================================================
+# Documentation Build
+# =============================================================================
+docs/_build/
+docs/build/
+site/
+
+# =============================================================================
+# Node.js (if using any JS tools)
+# =============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
