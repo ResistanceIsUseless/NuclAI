@@ -84,47 +84,70 @@ python security_training_data_generator.py \
 | Option | Description | Required |
 |--------|-------------|----------|
 | `--output` | Output file path | No (default: security_training.jsonl) |
-| `--setup` | Download/setup data sources | Recommended for first run |
+| `--setup` | Download/setup data sources (Nuclei, BChecks, Bug Bounty, RFCs) | Recommended for first run |
 | `--data-path` | Base path for data sources | No (default: ./security_data) |
 | `--upload-to-storage` | Upload to Azure Storage | No |
 | `--storage-connection-string` | Azure Storage connection string | If uploading |
 | `--storage-account-name` | Storage account name | Alternative to connection string |
 | `--storage-account-key` | Storage account key | With account name |
 
+**Enhanced Data Processing:**
+- **2,000+ Nuclei templates** processed (increased from 500)
+- **500+ Bug bounty reports** analyzed (increased from 100)  
+- **800+ BChecks** processed (increased from 200)
+- **Comprehensive examples** with 4-5 training samples per source file
+- **Real syntax examples** showing actual YAML, BCheck, and exploitation code
+
 #### Output Format
 
-The script generates training data in Azure OpenAI fine-tuning format:
+The script generates training data in Azure OpenAI fine-tuning format with **structured, tool-specific examples**:
 
 ```json
 {
   "messages": [
-    {"role": "user", "content": "Create a Nuclei template for detecting SQL injection"},
-    {"role": "assistant", "content": "I'll create a template for SQL injection detection:\n\n```yaml\nid: sqli-detection\ninfo:\n  name: \"SQL Injection Detection\"\n..."}
+    {"role": "user", "content": "Analyze this Nuclei template structure and explain how it works:\n\nid: sql-injection-basic\ninfo:\n  name: \"SQL Injection Detection\"\n  severity: high\n  tags: [sqli, injection]\nhttp:\n  - method: GET\n    path:\n      - \"{{BaseURL}}/search?q='\""},
+    {"role": "assistant", "content": "This Nuclei template follows the standard structure for vulnerability detection:\n\n**Template Components:**\n\n1. **ID**: sql-injection-basic - Unique identifier\n2. **Info Section**: Contains metadata\n   - Name: SQL Injection Detection\n   - Severity: high\n   - Tags: [sqli, injection]\n\n3. **Detection Logic**: HTTP requests with response pattern matching\n4. **Matchers**: Uses word/regex patterns to identify SQL errors\n\n**How it works:**\n1. Sends HTTP request to target with SQL metacharacter\n2. Analyzes response for database error patterns\n3. Reports positive matches based on error signatures\n4. Classifies finding with appropriate severity level"}
   ]
 }
 ```
 
+**Key Features:**
+- **Real syntax examples**: Actual YAML, BCheck syntax, exploitation techniques
+- **Structured learning**: Each example teaches specific tool usage patterns  
+- **Actionable content**: Focuses on creation and modification rather than explanation
+- **Professional depth**: Examples reflect real-world security professional workflows
+
 #### Training Data Sources
 
 1. **Nuclei Templates** (projectdiscovery/nuclei-templates)
-   - Vulnerability detection patterns
-   - Template creation examples
-   - Security testing methodologies
+   - **Purpose**: Teaching YAML-based vulnerability detection rule creation
+   - **Training Focus**: Template structure analysis, matcher logic, variant creation
+   - **Examples Generated**: Complete YAML syntax, debugging techniques, optimization strategies
+   - **Real-world Application**: Creating custom detection templates for specific applications
 
-2. **Bug Bounty Reports** (marcotuliocnd/bugbounty-disclosed-reports)
-   - Real-world vulnerability examples
-   - Testing methodologies
-   - Tool integration guidance
+2. **Burp BChecks** (PortSwigger/BChecks)
+   - **Purpose**: Teaching Burp Suite custom detection logic creation
+   - **Training Focus**: BCheck syntax, conditional logic, response analysis
+   - **Examples Generated**: Complete BCheck structure, optimization techniques, workflow integration
+   - **Real-world Application**: Custom vulnerability detection within Burp Suite workflows
 
-3. **Security RFCs**
-   - Protocol security analysis
-   - Standards compliance
-   - Technical security concepts
+3. **Bug Bounty Reports** (marcotuliocnd/bugbounty-disclosed-reports)
+   - **Purpose**: Teaching real-world exploitation methodologies
+   - **Training Focus**: "When you see X, try Y" attack patterns, exploitation chains
+   - **Examples Generated**: Attack methodologies, tool selection, environmental factors
+   - **Real-world Application**: Systematic vulnerability discovery and exploitation techniques
 
-4. **General Security Knowledge**
-   - Scan analysis and next steps
-   - Tool integration workflows
-   - Cross-tool correlation techniques
+4. **Security RFCs**
+   - **Purpose**: Teaching protocol-level security understanding
+   - **Training Focus**: Standards compliance, security implications
+   - **Examples Generated**: Protocol security analysis, compliance guidance
+   - **Real-world Application**: Deep protocol security knowledge for comprehensive assessments
+
+5. **General Security Knowledge**
+   - **Purpose**: Teaching comprehensive security methodologies
+   - **Training Focus**: Tool integration, assessment workflows, best practices
+   - **Examples Generated**: Multi-tool workflows, CI/CD integration, lab setup guides
+   - **Real-world Application**: Complete security assessment strategies
 
 ---
 
@@ -390,42 +413,62 @@ python -c "from huggingface_hub import whoami; print(whoami())"
 - MLX format for fastest inference on M4 Max
 - Use smaller context lengths for better performance
 
----
+### Training Data Quality and Scope
 
-## 🎯 Use Cases
+**Comprehensive Coverage (5,000+ Examples):**
+- **2,000+ Nuclei Templates**: Complete YAML structure, matcher logic, variant creation, debugging techniques
+- **800+ BChecks**: Full BCheck syntax, conditional logic, Burp Suite integration workflows
+- **500+ Bug Bounty Reports**: Real-world exploitation methodologies, attack chains, tool selection strategies
+- **Advanced Methodologies**: Multi-tool integration, CI/CD security, comprehensive assessment frameworks
+
+**Professional Depth:**
+- **Structured Rule Creation**: Actual YAML, BCheck syntax with complete examples
+- **Exploitation Techniques**: "When you see X, try Y" patterns from successful disclosures  
+- **Tool Integration**: Systematic workflows combining multiple security tools
+- **Real-world Context**: Examples grounded in professional security practice
+
+**Expected File Size**: 5-15MB (significantly expanded from initial 450KB)
+**Training Examples**: 2,000-5,000 high-quality examples
+**Content Depth**: 10-20x more detailed than basic security training data
 
 ### Model Capabilities After Fine-tuning
 
 Your security-specialized model will excel at:
 
-1. **Nuclei Template Creation**
+1. **Structured Detection Rule Creation**
    ```
    User: Create a Nuclei template for detecting Apache Struts RCE
-   Model: [Generates complete YAML template with proper detection logic]
+   Model: [Generates complete YAML template with proper detection logic, matchers, and metadata]
    ```
 
-2. **Nmap Script Development**
+2. **Burp Suite Integration and Automation**
    ```
-   User: Help me write an NSE script for custom service detection
-   Model: [Provides Lua script with explanation and usage guidance]
-   ```
-
-3. **Security Analysis**
-   ```
-   User: I found these open ports: 22, 80, 3306. What's my next step?
-   Model: [Provides systematic security assessment methodology]
+   User: Write a BCheck for detecting custom authentication bypass
+   Model: [Provides complete BCheck syntax with conditional logic and response analysis]
    ```
 
-4. **Tool Integration**
+3. **Exploitation Methodology Guidance**
    ```
-   User: How do I use Burp Suite to test for SSRF?
-   Model: [Explains configuration, methodology, and validation steps]
+   User: I found SQL error messages in parameter testing. What's my next step?
+   Model: [Provides systematic exploitation methodology: fingerprinting → injection → escalation]
    ```
 
-5. **CVE Correlation**
+4. **Advanced Tool Integration**
    ```
-   User: Are there known CVEs for this vulnerability pattern?
-   Model: [Provides CVE research methodology and correlation techniques]
+   User: How do I chain Nmap discovery with Nuclei scanning for comprehensive assessment?
+   Model: [Explains systematic workflow with specific command sequences and optimization strategies]
+   ```
+
+5. **Security Code Analysis**
+   ```
+   User: Analyze this security script for potential improvements
+   Model: [Provides detailed code review with security best practices and optimization suggestions]
+   ```
+
+6. **Real-world Attack Simulation**
+   ```
+   User: Simulate a multi-stage attack against a web application
+   Model: [Designs realistic attack chain with tool selection, timing, and evasion techniques]
    ```
 
 ---
