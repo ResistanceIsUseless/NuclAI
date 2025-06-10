@@ -134,7 +134,7 @@ mlruns/
 wandb/
 tensorboard-logs/
 logs/
-
+security-data/
 # Hugging Face cache
 .cache/
 transformers_cache/
